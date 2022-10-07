@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Contato;
 
 class ContatosController extends Controller
 {
@@ -13,7 +14,7 @@ class ContatosController extends Controller
      */
     public function index()
     {
-        $contatos = Contato::all()->sortGyAsc('nome');
+        $contatos = Contato::all();
         return view('contato.index',array('contatos' => $contatos));
     }
 
@@ -24,7 +25,7 @@ class ContatosController extends Controller
      */
     public function create()
     {
-        //
+        return view('contato.create');
     }
 
     /**
@@ -35,7 +36,15 @@ class ContatosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $contato = new Contato();
+        $contato->nome = $request->input('nome');
+        $contato->email = $request->input('email');
+        $contato->telefone = $request->input('telefone');
+        $contato->cidade = $request->input('cidade');
+        $contato->estado = $request->input('estado');
+        if($contato->save()) {
+            return redirect('contatos');
+        }
     }
 
     /**
@@ -46,7 +55,8 @@ class ContatosController extends Controller
      */
     public function show($id)
     {
-        //
+        $contato = Contato::find($id);
+        return view('contato.show',array('contato' => $contato));
     }
 
     /**
