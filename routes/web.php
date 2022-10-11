@@ -22,3 +22,7 @@ Route::get('/', function () {
 Route::get('contatos/buscar',[ContatosController::class,'buscar']);
 
 Route::resource('contatos',ContatosController::class);
+
+Route::get('livros/buscar',[LivrosController::class,'buscar']);
+
+Route::resource('livros',LivrosController::class);
